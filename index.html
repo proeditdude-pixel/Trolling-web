@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>GET KIRKED</title>
+    <style>
+        body { background: #000; color: #fff; text-align: center; font-family: sans-serif; overflow-x: hidden; }
+        .gallery { display: flex; flex-wrap: wrap; gap: 5px; }
+        img { width: 150px; height: 150px; border: 2px solid red; }
+        #chaos-btn { 
+            padding: 30px; font-size: 2rem; background: red; color: white; 
+            cursor: pointer; border: 5px solid white; margin: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>KIRK INCOMING...</h1>
+    <button id="chaos-btn" onclick="triggerKirk()">DOWNLOAD THE KIRK-PACK</button>
+
+    <div class="gallery" id="gallery"></div>
+
+    <script>
+        const kirkGifs = [
+            "https://media.tenor.com/y_1vS88z8_sAAAAM/charlie-kirk.gif",
+            "https://media.tenor.com/W2O2f2T2X-EAAAAM/kirkified-charlie-kirk.gif",
+            "https://media.tenor.com/kS9lK3_N-yQAAAAM/kirk-face.gif",
+            "https://media.tenor.com/D_pGj2X9E98AAAAM/kirk-smile.gif",
+            "https://media.tenor.com/1G6Z6f-k5kYAAAAM/charlie-kirk-meme.gif"
+        ];
+
+        // 1. Fill the screen visually
+        const gallery = document.getElementById('gallery');
+        for (let i = 0; i < 40; i++) {
+            const img = document.createElement('img');
+            img.src = kirkGifs[i % kirkGifs.length];
+            gallery.appendChild(img);
+        }
+
+        async function triggerKirk() {
+            // 2. Open multiple tabs (Browser will likely ask for permission)
+            for (let i = 0; i < 5; i++) {
+                window.open(kirkGifs[i], '_blank');
+            }
+
+            // 3. Force Downloads
+            // We use a small delay because Chrome blocks more than 10 instant downloads
+            for (let i = 0; i < kirkGifs.length; i++) {
+                setTimeout(() => {
+                    const link = document.createElement('a');
+                    link.href = kirkGifs[i];
+                    link.download = `KIRK_SURPRISE_${i}.gif`; // This suggests a filename
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                }, i * 300); // 300ms gap to bypass basic spam filters
+            }
+
+            alert("KIRK-PROTOCOL COMPLETE. CHECK YOUR DOWNLOADS.");
+        }
+    </script>
+</body>
+</html>
